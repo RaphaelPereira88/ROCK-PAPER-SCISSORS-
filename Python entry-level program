@@ -1,35 +1,34 @@
-import random
-import time
+import random                                                                                 # to bring randomness to the game 
+import time                                                                                   # to delay a bit the text that the user will see 
 import sys
 
-moves = ['rock', 'paper', 'scissors']
+moves = ['rock', 'paper', 'scissors']                                                          # describes the differents moves
 
 
-class Player:
+class Player:                                                                                  # use of classes to reduce code size, this one is to determine what player moves strtegy, random or else 
     my_move = random.choice(moves)
     their_move = random.choice(moves)
 
-    def move(self):
+    def move(self):                                                                            # this is what I 've called the easy mode, at the beginning of the game you are asked what level you want. it always plasy Rock  
         return 'rock'
 
-    def learn(self, my_move, their_move):
+    def learn(self, my_move, their_move):                                                     # function to tell the program you gave a name to my_move and their_move
         self.my_move = my_move
         self.their_move = their_move
 
 
-class PlayerName(Player):
+class PlayerName(Player):                                                                    #global me = to allow variable "me" to be used outside this class. here i want the name of the user to be used in other function
     def tell_name():
         global me
         me = input("Player please enter you name:\n")
 
 
-class RandomPlayer(Player):
-    def move(self):
+class RandomPlayer(Player):                                                                 # this is what i called in my game "hard level ",
         my_move = random.choice(moves)
         return my_move
 
 
-class HumanPlayer(Player):
+class HumanPlayer(Player):                                                                  # user moves, input
     def move(self):
         self.my_move = input(me + " Please enter the move you choose"
                              " between: Rock, Scissors, Paper? :\n").lower()
@@ -38,15 +37,15 @@ class HumanPlayer(Player):
         return self.my_move
 
 
-class ReflectPlayer(Player):
+class ReflectPlayer(Player):                                                               # intermediate level
     def move(self):
         return self.their_move
 
-    def tell_name():
+    def tell_name():                                                                       # here we "pass" because we don't want the parent def tell_name
         pass
 
 
-class Cycleplayer(Player):
+class Cycleplayer(Player):                                                                 #intermediate/hard level
     def move(self):
         if self.my_move == "paper":
             return "scissors"
@@ -60,11 +59,11 @@ class Game:
     p1_score = 0
     p2_score = 0
 
-    def __init__(self, p1, p2):
+    def __init__(self, p1, p2):                                                             # initialiser 
         self.p1 = p1
         self.p2 = p2
 
-    def level_player():
+    def level_player():                                                                     # user choose the level
         print("Game start!")
         response2 = input("Please choose your level !\n"
                          "Enter: 1 easy, 2 easy/medium, 3 medium and 4 hard:\n")
@@ -82,18 +81,18 @@ class Game:
             game.play_game()
 
 
-    def beats(self, one, two):
+    def beats(self, one, two):                                                                       #winning combination 
         return ((one == 'rock' and two == 'scissors') or
                 (one == 'scissors' and two == 'paper') or
                 (one == 'paper' and two == 'rock'))
 
-    def print_pause(self, message):
+    def print_pause(self, message):                                                                #function to delay the text the user will see
         print(message)
         time.sleep(1)
 
-    def play_round(self):
+    def play_round(self):                                                                        #function that tells if user won or lost , here and like eveywhere we use instance variable
         move1 = self.p1.move()
-        move2 = self.p2.move()
+        move2 = self.p2.move()                                                                     this function count the lost or win too and memorize the score
         print("\n"f"Computer: {move1}\t " + me + f": {move2}")
         if self.beats(move1, move2):
             self.p1_score += 1
@@ -109,7 +108,7 @@ class Game:
         self.p1.learn(move1, move2)
         self.p2.learn(move2, move1)
 
-    def final_score(self):
+    def final_score(self):                                                                     #tells you if user won/lost the enter Game, if there's not 3 points difference between the 2 players the system will go up to round 7 and the winner will be the one with more points                            
         if self.p1_score > self.p2_score:
             self.print_pause(f"{me} You Lost sorry, try again !!")
         elif self.p2_score > self.p1_score:
@@ -117,7 +116,7 @@ class Game:
         elif self.p1_score == self.p2_score:
             print("well it's Draw my friend " + me)
 
-    def winner_score(self):
+    def winner_score(self):                                                             # tell user if he lost or won this game with 3 point difference.
         if self.p1_score == self.p2_score + 3:
             self.print_pause("Game Over")
             print("You Lost with 3 points difference!!")
@@ -127,7 +126,7 @@ class Game:
             print("You Won with 3 points difference!!")
             self.play_again()
 
-    def play_again(self):
+    def play_again(self):                                                            #play again finction, ask the player if he wants to play again or quit 
         response = input("Fancy another game ? "
                          "(please enter:  1 for 'Yes' and 2 for 'No'):\n")
         if '1'in response:
@@ -139,7 +138,7 @@ class Game:
         else:
             self.play_again()
 
-    def play_game(self):
+    def play_game(self):                                                             # fonction that calls for the other to run the game, give you the rounds player are in, score, final score and ask you if you want to play again at the end.
         PlayerName.tell_name()
         for round in range(1, 8):
             self.print_pause(f"Round {round}:")
