@@ -19,4 +19,4 @@ you can choose your level of difficulty between:
 - the program will ask you if you want to play gain or not . if you reply yes to it the games will restart otherwise it will stop.
 
 ### Error:
-- if player don't write rock or papaer or scissors , the program will ask him again to type his answer until it matches. 
+- if player don't write the words rock or papaer or scissors , the program will ask him again to type his answer until it matches. the program accept user to write with uppercase letters too.
