@@ -13,7 +13,7 @@ you can choose your level of difficulty between:
 
 ### Scores:
 - program counts the score and will tell who's the winner
-- theres's 8 rounds
+- theres's 8 rounds but you can win or loose if you have 3 points difference.n
 
 ### Restart:
 - the program will ask you if you want to play gain or not . if you reply yes to it the games will restart otherwise it will stop.
